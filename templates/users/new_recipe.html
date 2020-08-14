@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<!-- Preloader -->
+<div id="preloader">
+   <i class="circle-preloader"></i>
+   <img src="{% static 'img/core-img/pizza.png' %}" alt="">
+</div>
+ 
+{% include 'partials/_search.html' %}
+ 
+{% include 'partials/_menu.html' %}
+ 
+<!-- ##### Contact Form Area Start ##### -->
+<div class="contact-area section-padding-0-80">
+   <div class="container">
+       <div class="row">
+           <div class="col-12">
+               <div class="section-heading">
+                   <h3>Register a new recipe :)</h3>
+               </div>
+           </div>
+       </div>
+       
+       <div class="row">
+           <div class="col-12">
+           <p>** All fields are mandatory **</p>
+               <div class="contact-form-area">
+                   <form action="{% url 'new_recipe' %}" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                       <div class="row">
+                           <div class="col-12 col-lg-12">
+                               <label for="name_recipe"><b>Recipe Title</b></label>
+                               <input type="text" id="name_recipe" class="form-control" name="name_recipe" placeholder="e.g. Guinness stew" required>
+                           </div>
+                           <div class="col-12">
+                               <label for="file"><b>Ingredients</b></label>
+                               <textarea class="form-control" name="ingredients" cols="30" rows="10" placeholder="e.g. 2 pounds beef chuck &#10;6 ounces bacon ,diced" required></textarea>
+                           </div>
+                           <div class="col-12">
+                               <label for="file"><b>Directions</b></label>
+                               <textarea class="form-control" name="directions" cols="30" rows="10" placeholder="e.g. Cut the beef across the grain into into 1-inch pieces.  &#10;Sprinkle with some salt, pepper and the flour and toss to coat the pieces. Set aside." required></textarea>
+                           </div>
+                           <div class="col-12 col-lg-3">
+                               <label for="file"><b>Cook Time (minutes)</b></label>
+                               <input type="number" class="form-control" name="cook_time" placeholder="e.g. 20" required>
+                           </div>
+                           <div class="col-12 col-lg-3">
+                               <label for="file"><b>Servings</b></label>
+                               <input type="text" class="form-control" name="servings" placeholder="e.g. 6 servings" required>
+                           </div>
+                           <div class="col-12 col-lg-3">
+                               <label for="file"><b>Category</b></label>
+                               <input type="text" class="form-control" name="category" placeholder="e.g. Main Course" required>
+                           </div>
+                           <div class="col-12 col-lg-3">
+                               <label for="file"><b>Image</b></label>
+                               <input type="file" class="form-control" name="image" required>
+                           </div>
+                           <div class="col-12 text-center">
+                               <button class="btn delicious-btn mt-30" type="submit">Publish the recipe</button>
+                           </div>
+                       </div>
+                   </form>
+               </div>
+           </div>
+       </div>
+   </div>
+</div>
+ 
+{% include 'partials/_footer.html' %}
+{% endblock %}

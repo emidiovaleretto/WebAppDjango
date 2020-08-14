@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <!-- Preloader -->
+    <div id="preloader">
+        <i class="circle-preloader"></i>
+        <img src="{% static 'img/core-img/pizza.png'%}" alt="">
+    </div>
+
+    {% include 'partials/_search.html' %}
+
+    {% include 'partials/_menu.html' %}
+
+    <!-- ##### Best Receipe Area Start ##### -->
+    <section class="best-receipe-area">
+        <div class="container">
+            <div class="contact-area section-padding-0-60">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="section-heading">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+             </div>
+            <div class="row">
+                {% if recipes %}
+                {% for recipe in recipes %}
+                <!-- Single Best Receipe Area -->
+                <div class="col-12 col-sm-6 col-lg-4">
+                    <div class="single-best-receipe-area mb-30">
+                        {% if recipe.image %}
+                            <a href="{% url 'recipe' recipe.id %}"><img src="{{ recipe.image.url }}" alt=""></a>
+                        {% else %}
+                            <img src="{% static 'img/bg-img/foto_receita.png' %}" alt="">
+                        {% endif %}
+                            <div class="receipe-content">
+                            <a href="{% url 'recipe' recipe.id %}">
+                                <h5>{{recipe.name}}</h5>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+                {% else %}
+                {% endif %}
+            </div>
+        </div>
+    </section>
+    <!-- ##### Best Receipe Area End ##### -->
+
+    <!-- ##### Pagination ##### -->
+        <section class="top-catagory-area section-padding-20-0">
+            <div class="container">
+                {% if recipes.has_other_pages %}
+                <ul class="pagination justify-content-end">
+                    {% if recipes.has_previous %}
+                    <li class="page-item">
+                        <a href="?page={{ recipes.previous_page_number }}" class="page-link">&laquo;</a>
+                    </li>
+                    {% else %}
+                    <li class="page-item disabled">
+                        <a class="page-link">&laquo;</a>
+                    </li>
+                    {% endif %}
+                    {% for page in recipes.paginator.page_range %}
+                    {% if recipes.number == page %}
+                    <li class="page-item active">
+                        <a class="page-link">{{ page }}</a>
+                    </li>
+                    {% else %}
+                    <li class="page-item">
+                        <a href="?page={{page}}" class="page-link">{{page}}</a>
+                    </li>
+                    {% endif %}
+                    {% endfor %}
+                    {% if receitas.has_next %}
+                    <li class="page-item">
+                        <a href="?page={{ recipes.next_page_number }}" class="page-link">&raquo;</a>
+                    </li>
+                    {% else %}
+                    <li class="page-item disabled">
+                        <a class="page-link">&raquo;</a>
+                    </li>
+                    {% endif %}
+                </ul>
+                {% endif %}
+            </div>
+        </section>
+        <!-- ##### Pagination End ##### -->
+
+    {% include 'partials/_footer.html' %}
+
+{% endblock %}

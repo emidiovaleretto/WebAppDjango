@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<!-- Preloader -->
+<div id="preloader">
+    <i class="circle-preloader"></i>
+    <img src="{% static 'img/core-img/pizza.png' %}" alt="">
+</div>
+
+{% include 'partials/_search.html' %}
+
+{% include 'partials/_menu.html' %}
+
+<!-- ##### Contact Form Area Start ##### -->
+<div class="contact-area section-padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="section-heading">
+                    <h3>Edit your recipe :)</h3>
+                </div>
+            </div>
+        </div>
+        {% include 'partials/_alerts.html'%}
+        <div class="row">
+            <div class="col-12">
+            <p>** All fields are mandatory **</p>
+                <div class="contact-form-area">
+                    <form action="{% url 'update_recipe' %}" method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <input type="text" id="recipe_id" class="form-control" name="recipe_id" value="{{recipe.id}}" hidden>
+                        <div class="row">
+                            <div class="col-12 col-lg-12">
+                                <label for="name_recipe"><b>Recipe Title</b></label>
+                               <input type="text" id="name_recipe" class="form-control" name="name_recipe" placeholder="e.g. Guinness stew" value="{{recipe.name}}" required>
+                            </div>
+                            <div class="col-12">
+                                <label for="file"><b>Ingredients</b></label>
+                                <textarea class="form-control" name="ingredients" cols="30" rows="10" placeholder="e.g. 2 pounds beef chuck &#10;6 ounces bacon ,diced" required>{{recipe.ingredients}}</textarea>
+                            </div>
+                            <div class="col-12">
+                                <label for="file"><b>Directions</b></label>
+                               <textarea class="form-control" name="directions" cols="30" rows="10" placeholder="e.g. Cut the beef across the grain into into 1-inch pieces.  &#10;Sprinkle with some salt, pepper and the flour and toss to coat the pieces. Set aside." required>{{recipe.directions}}</textarea>
+                            </div>
+                            <div class="col-12 col-lg-4">
+                                <label for="file"><b>Cook Time (minutes)</b></label>
+                               <input type="number" class="form-control" name="cook_time" placeholder="e.g. 20" value="{{recipe.time_to_cook}}" required>
+                            </div>
+                            <div class="col-12 col-lg-4">
+                                <label for="file"><b>Servings</b></label>
+                               <input type="text" class="form-control" name="servings" placeholder="e.g. 6 servings" value="{{recipe.servings}}" required>
+                            </div>
+                            <div class="col-12 col-lg-4">
+                                <label for="file"><b>Category</b></label>
+                               <input type="text" class="form-control" name="category" placeholder="e.g. Main Course" value="{{recipe.category}}" required>
+                            </div>
+                            <div class="col-12 col-lg-4">
+                                <label for="file"><b>Current Image</b></label>
+                                <img src="{{ recipe.image.url }}" alt="">
+                            </div>
+                            <div class="col-12 col-lg-4">
+                                <label for="file"><b>Add a new image</b></label>
+                                <input type="file" class="form-control" name="image">
+                            </div>
+                            <div class="col-12 text-center">
+                                <button class="btn btn-success" type="submit">Send</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% include 'partials/_footer.html' %}
+{% endblock %}

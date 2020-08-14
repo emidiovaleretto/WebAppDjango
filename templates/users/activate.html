@@ -1,0 +1,15 @@
+{% autoescape off %}
+
+Hi {{ user.username }},
+
+We're very excited to have you get started. First, you need to confirm your account.
+
+Just click on the link below.
+
+http://{{ domain }}{% url 'activate' uidb64=uid token=token %}
+
+If you have any questions, just reply to this email - we're always happy to help out.
+
+Cheers!
+
+{% endautoescape %}

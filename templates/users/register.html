@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<!-- Preloader -->
+<div id="preloader">
+    <i class="circle-preloader"></i>
+    <img src="{% static 'img/core-img/pizza.png' %}" alt="">
+</div>
+
+{% include 'partials/_search.html' %}
+
+{% include 'partials/_menu.html' %}
+
+<!-- ##### Contact Form Area Start ##### -->
+<div class="contact-area section-padding-0-80">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="section-heading">
+                    <h2>Create an Account</h2>
+                </div>
+            </div>
+        </div>
+        {% include 'partials/_alerts.html' %}
+        <div class="row">
+            <div class="col-12">
+                <div class="contact-form-area">
+                    <form action="{% url 'register' %}" method="POST">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-12 col-lg-12">
+                                <label for="name_user"><b>Full name</b></label>
+                                <input type="text" class="form-control" name="name" placeholder="Ex.: Michael Fitzgerald" required>
+                            </div>
+                            <div class="col-12 col-lg-12">
+                                <label for="email"><b>Email</b></label>
+                                <input type="email" class="form-control" name="email" placeholder="Ex.: michael@gmail.com" required>
+                            </div>
+                            <div class="col-12 col-lg-6">
+                                <label for="password"><b>Password</b></label>
+                                <input type="password" class="form-control" name="password" placeholder="At least 8 or more characters" required>
+                            </div>
+                            <div class="col-12 col-lg-6">
+                                <label for="password2"><b>Confirm Password</b></label>
+                                <input type="password" class="form-control" name="password2" placeholder="Re-enter password" required>
+                            </div>
+                            <div class="col-12 text-center">
+                                <button class="btn btn-success btn-sm" type="submit">Create Your Account</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% include 'partials/_footer.html' %}
+{% endblock %}
